@@ -1,5 +1,5 @@
 def palindrom():
-    text = input()
+    text = input('введите текст\n')
     n = len(text)
     message = 'Является палиндромом'
     for symbol in text:
@@ -13,8 +13,10 @@ def palindrom():
 
 def maximum():
     n = int(input('Введите размерность строки\n'))
-    text = input('Введите строку\n')
-    text = sorted(list(text[:n:]))
+    text = []
+    for i in range(n):
+       text.append(int(input('Введите число\n')))
+    text.sort()
     return text[-1], text[-2]
 
 
@@ -34,6 +36,6 @@ def nulls():
 
 
 
-nulls()
-#print(maximum())
+#nulls()
+print(maximum())
 #print(palindrom())
