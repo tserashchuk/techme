@@ -20,7 +20,7 @@ def sec():
         a = calendar.weekday(y, m, 1)
         if d == a:
             return y, m
-            break
+            break  # зачем break, если уже есть return? :)
         m -= 1
         if m == 0:
             y -= 1
@@ -39,11 +39,13 @@ def third():
         c3 = math.acos((a ** 2 + b ** 2 - c ** 2) / (2 * a * b))
     else:
         print('не существует')
+    # попробуй ввести a, b, c, при которых тругольника не существует
+    # у тебя программа завершится с ошибкой
     return math.degrees(c1), math.degrees(c2), math.degrees(c3)
 
 
 def fourth():
-    a = int(random.randrange(0, 11))
+    a = int(random.randrange(0, 11))  # обычно в таких случаях используют randint, но разницы нет
     while True:
         b = int(input('число\n'))
         if a == b:
