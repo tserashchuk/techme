@@ -5,12 +5,11 @@ massiv = [5, 8, 6, 2, 9]
 def sum(a,b):
     return a + b
 
-def multiply(a, b): #надо не делать с нуля
+def multiply(a, b): #надо не делать с нуля как-то
     return a * b
 
 def join(a,b):
-    print(a)
-    return lambda a: a+2
+    return a*10+b
 
 # def unite():
 # def reverse():
@@ -45,11 +44,11 @@ def primes(a): #хз
 
 # n = int(input('введите число\n'))
 # lst = numpy.random.randint(0, 10, n)
-command_list = {'sum':sum, 'negated':negated, 'primes':primes}
+command_list = {'join':join, 'negated':negated, 'primes':primes}
 command = input('введите команды').split()
 
 # re = list(map(command_list[command[1]], massiv))
-re2 = list(filter(command_list[command[2]], re))
-# re3 = reduce(command_list[command[0]], re2, 0)
+# re2 = list(filter(command_list[command[2]], re))
+re3 = reduce(command_list[command[0]], massiv,0)
 
-print(re2)
+print(re3)
