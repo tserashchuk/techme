@@ -1,6 +1,6 @@
 def log(fn):
     def test(*args, **kwargs): #может быть больше одной функции?
-        print('vasiliy sose')
+
         func = fn(*args, **kwargs)
         print(fn.__name__, args, kwargs)
         return func #почему тут возврацается значение? как?
