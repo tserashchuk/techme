@@ -1,8 +1,12 @@
 def log(fn):
-    def test(*args, **kwargs): #может быть больше одной функции? а как если класс? можно ли без вложенной функции?
+    def test(*args, **kwargs):  #после занятия понял что тупанул с условием
         func = fn(*args, **kwargs)
-        print(fn.__name__, args, kwargs)
-        return func #почему тут возврацается значение? как?
+        a = []
+        for i in kwargs:
+            a.append(str(i)+' = '+str(kwargs[i]))
+        b = list(args) + a
+        print(fn.__name__, tuple(b), func)
+        return func
     return test
 
 @log
