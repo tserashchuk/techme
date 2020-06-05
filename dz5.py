@@ -4,10 +4,10 @@ class readonly(object):
         self.f = func
 
     def __get__(self, instance, owner):
-        return instance.__dict__['_Test__val']
+        return self.f(instance)
 
     def __set__(self, instance, value):
-        raise AttributeError
+        raise AttributeError()
 
 
 
@@ -23,5 +23,5 @@ class Test(object):
 
 test = Test()
 print(test.val)  # OK, выводит 1
-# test.val = 2  # AttributeError
+test.val = 2  # AttributeError
 
