@@ -3,8 +3,8 @@ from time import time, sleep
 from abc import abstractmethod
 import random
 window = modulefive.Window(0, 0, 405, 405)
-fps = 60
-
+fps = 10
+figures = []
 
 class Shape(object):
     def __init__(self, x, y):
@@ -52,6 +52,8 @@ class Rectangle(Shape):  # прямоугольник
 class Square(Rectangle):  # квадрат
     def __init__(self, x, y, size):
         self.size = size
+        self.speed_horisontal = random.randint(1, 10) * -1
+        self.speed_vertical = random.randint(1, 10) * -1
         super().__init__(x, y, self.size, self.size)
 
 
@@ -62,8 +64,10 @@ class Square(Rectangle):  # квадрат
 
 class Circle(Shape):  # круг
     def __init__(self, x, y, radius):
-        super().__init__(x,y)
+        super().__init__(x, y)
         self.radius = radius
+        self.speed_horisontal = random.randint(1, 10) * -1
+        self.speed_vertical = random.randint(1, 10) * -1
 
     def draw(self):
         window.draw_ellipse((self.x,self.y), (self.radius,self.radius), color='black')
@@ -81,52 +85,55 @@ class Circle(Shape):  # круг
         return self.x + self.radius
 
 
-class Triangle(Shape):  # равносторонний треугольник
-    def __init__(self, x, y, height):
-        super().__init__(x, y)
-        self.height = height
+# class Triangle(Shape):  # равносторонний треугольник
+#     def __init__(self, x, y, height):
+#         super().__init__(x, y)
+#         self.height = height
+#
+#     def draw(self):
+#         window.draw_polygon(, color='black')
+#
+#     def top(self) -> float:
+#         return self.y
+#
+#     def bottom(self) -> float:
+#         return self.y + self.height
+#
+#     def left(self) -> float:
+#         return self.x
+#
+#     def right(self) -> float:
+#         return self.x + self.height
 
-    def draw(self):
-        window.draw_polygon((self.x, self.y), color='black')
 
-    def top(self) -> float:
-        return self.y
 
-    def bottom(self) -> float:
-        return self.y + self.height
 
-    def left(self) -> float:
-        return self.x
+# n = int(input('введите количество фигур\n'))
+n = 5
 
-    def right(self) -> float:
-        return self.x + self.height
+for i in range(n):
+    figures.append(Square(random.randint(0,400), random.randint(0,400), 20))
 
-figure = Triangle(0,0,120)
-speed_horisontal = random.randint(1,10) * -1
-speed_vertical = random.randint(1,10) * -1
 while not window.close():
     start = time()
     window.clear()
 
+    for figure in figures:
+        if figure.right() >= window.width:
+            figure.speed_horisontal = figure.speed_horisontal * -1
+        elif figure.left() <= 0:
+            figure.speed_horisontal = figure.speed_horisontal * -1
 
-    if figure.right() >= window.width:
-        speed_horisontal = speed_horisontal * -1
-    elif figure.left() == 0:
-        speed_horisontal = speed_horisontal * -1
-
-    if figure.bottom() >= window.height:
-        speed_vertical = speed_vertical * -1
-    elif figure.top() == 0:
-        speed_vertical = speed_vertical * -1
+        if figure.bottom() >= window.height:
+            figure.speed_vertical = figure.speed_vertical * -1
+        elif figure.top() <= 0:
+            figure.speed_vertical = figure.speed_vertical * -1
 
 
-    figure.x += speed_horisontal
-    figure.y += speed_vertical
+        figure.x += figure.speed_horisontal
+        figure.y += figure.speed_vertical
 
-    a = figure.right()
-    b = figure.left()
-
-    figure.draw()
+        figure.draw()
 
     window.update()
     pause = 1/fps - (time() - start)
